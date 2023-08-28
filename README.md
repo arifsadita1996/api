@@ -8,23 +8,41 @@
 Simple .env
 
 ```js
-//Database
+//Database Mysql
 host= "xcxx"
 user= "xcxx"
 password= "xcxx"
 database= "xcxx"
 
-//Email Auth
+//Email STMP
 email= "xcxx"
 pass= "xcxx"
 
-//Authentication
+//Authentication Header
 username_auth= "xcxx"
 password_auth= "xcxx"
 ```
 
 
+```js
+cd api
+```
 
+dont forget install mysql,nodemailer and other module
+```js
+npm install
+```
+
+change nodemon to node like this
+```js
+"scripts": {
+    "start": "node index.js ",
+  }
+```
+
+```js
+npm start
+```
 
 <code>npm install</code>
 
