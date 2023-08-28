@@ -20,7 +20,7 @@ const Tampil = (request,response)=>{
         if (err) throw err
       
         response.status(200).json(rows)
-        console.log('The solution is: ', rows)
+       
       })
 }
 
@@ -29,14 +29,29 @@ const Add = (request,response)=>{
 
     
       // Access granted...
-      const id = request.body.id
-    const name = request.body.name
-    const email = request.body.email
+      const {id,name,email} = request.body
+   
+    
     cn.connection.query('INSERT INTO users (id,name, email) VALUES (?, ?,?) ',[id,name,email], (err, rows, fields) => {
-        if (err) throw err
+        if (err) {
+          response.status(401).send({
+            error:{
+              message:"Error Insert Failed",
+              code:'401'
+            }
+          })
+          console.log('The solution is: ', err)
+        }else{
+
+        response.status(200).json({
+          success:{
+            message:'Success Insert ',
+            code:'200'
+          }
+        })
+        console.log('The solution is: ', )
+        }
       
-        response.status(200).json(rows)
-        console.log('The solution is: ', rows)
       })
     
   
@@ -50,20 +65,22 @@ const Delete = (request,response)=>{
     cn.connection.query('DELETE FROM users where id =?',[id], (err, rows, fields) => {
         if (err) throw err
       
-        response.status(200).send('header')
+        response.status(200).json('success')
        
       })
 }
 
 
 const Update = (request,response)=>{
-    
+  const id = request.body.id
+  const name = request.body.name
+  const email = request.body.email
 
-    cn.connection.query('INSERT SET name = ?, email = ? where id =?',[nama,email,id], (err, rows, fields) => {
+    cn.connection.query("UPDATE users SET name = ?, email = ?  WHERE id = ?;",[name,email,id], (err, rows, fields) => {
         if (err) throw err
       
-        response.status(200).json(rows)
-        console.log('The solution is: ', rows)
+        response.status(200).json('success')
+       
       })
 }
 
@@ -73,6 +90,7 @@ module.exports={
     Tampil,
     Tampil_ID,
     Add,
-    Delete
+    Delete,
+    Update
     
 }
