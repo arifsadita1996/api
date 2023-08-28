@@ -1,6 +1,11 @@
 # api
 clone 
-npm install
+
+function test() {
+  console.log("npm install");
+}
+
+
 add env {
 
 //Database Mysql
