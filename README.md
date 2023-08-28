@@ -5,7 +5,7 @@
 
 
 
-Simple .env
+simple .env
 
 ```js
 //Database Mysql
@@ -24,9 +24,6 @@ password_auth= "xcxx"
 ```
 
 
-```js
-cd api
-```
 
 dont forget install mysql,nodemailer and other module
 ```js
@@ -43,7 +40,3 @@ change nodemon to node like this
 ```js
 npm start
 ```
-
-<code>npm install</code>
-
-<code>npm start</code>
