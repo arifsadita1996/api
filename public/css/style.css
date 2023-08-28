@@ -1,0 +1,39 @@
+#nav{
+    
+}
+
+#nav a{
+    color: #fff;
+  }
+
+  #nav button span{
+    color: #fff;
+  }
+
+  .textinfo{
+  
+    color: #fff;
+  }
+
+
+  @media only screen and (max-width: 600px) {
+    #nav {
+      background-color: rgb(75, 74, 74);
+    }
+
+    .textinfo{
+      color: #0c0c0c;
+    }
+  
+  }
+
+  @media only screen and (min-width: 600px) {
+
+
+    .textinfo{
+      padding-left: 200px;
+      padding-right: 200px;
+      color: #ffff;
+    }
+  
+  }

@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+
+<%- include('./component/head'); %>
+
+  <body id="home" >
+   
+    <%- include('./component/header'); %>
+    
+<div  class="d-flex align-items-center justify-content-center"  style="background: url('/image/bg.png');background-repeat: no-repeat;background-size: cover; height: 100vh;"  >
+    <div  >
+       <h1 class="text-white fw-bold text-center">REST API Service</h1>
+       <h5 class="container w-100 text-start text-mute textinfo
+       ">
+       RESTful API / REST API adalah sebuah arsitektur metode komunikasi yang menggunakan protokol HTTP untuk pertukaran data dimana metode ini sering diterapkan dalam pengembangan aplikasi. 
+       </h5>
+    </div>   
+  </div>
+  
+ <div id='feature' class="align-items-start justify-content-start container py-2 mt-5 pt-5" > <h1>Feature</h1>
+  <br>
+  <div>Simple easy only on your server we never save it on database</div>
+  <br>
+ </div>
+ <div id="example" class=" align-items-start justify-content-start container py-2 mt-5 pt-5" >
+  <h1>Example</h1>
+  <br>
+  <div>Example create,read,update,delete</div>
+  <br><h1></h1>
+  <div class="container">
+   
+<a class="btn btn-primary my-3"  href="/api2">Here JSON</a>
+
+    <div>
+        <div class="row w-100" id="books">
+        </div>
+    </div>
+  
+</div>
+
+
+
+
+
+<div class="modal fade" id="editBookModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="#editForm" id="editForm" onsubmit="myFunction()" method="PUT">
+          <div class="form-group">
+              <label for="ISBN">id</label>
+              <input class="form-control" name="id" id="id">
+          </div>
+
+          <div class="form-group">
+              <label for="Title">Title</label>
+              <input class="form-control" name="title" id="title">
+          </div>
+
+          <!--Other fields-->
+
+          <button type="submit" class="btn btn-primary my-3">Submit</button>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+  <form action="/api"  method="POST" >
+    <div class="form-group">
+      <br></br>
+        <label for="ISBN" >Id</label>
+        <input class="form-control" name="id2" >
+    </div>
+
+    <div class="form-group">
+        <label for="Title" >Title</label>
+        <input class="form-control" name="title2" >
+    </div>
+
+    <!--Other fields-->
+    <button type="submit"  class="btn btn-primary my-2">Submit</button>
+</form>
+ </div>  
+ 
+ <div id="docs" class="align-items-start justify-content-start container py-2 mt-5 pt-5"  ><h1>Docs</h1>
+ 
+  <br>
+  <div>you can use <a>https://expressjs-six.vercel.app/ </a>this only for testing maybe later i am wanna make this for all</div>
+  <br>
+  <p>For show  GET https://expressjs-six.vercel.app/api2</p>
+  <p>For add POST https://expressjs-six.vercel.app/api2</p>
+  <p>For delete DELETE https://expressjs-six.vercel.app/api2/:id</p>
+  <p>For edit GET https://expressjs-six.vercel.app/api2/:id</p>
+</div>  
+ <div id="contact" class="align-items-start justify-content-start container py-2 mt-5 pt-5" >
+  <h1>Contact</h1>
+  <br>
+  <div>Email Me arifes1996@gmail.com thanks you for coming </div>
+  <br>
+ </div> 
+ 
+   
+ <script>
+window.addEventListener("scroll", (event) => {
+  if (scrollY > 100){
+    document.getElementById('nav').style.backgroundColor = 'rgb(75, 74, 74)'
+    document.getElementById('nav').style.transition= '2s'
+    document.getElementById('nav-link').style.color = 'white'
+  }else{
+    document.getElementById('nav').style.backgroundColor = ''
+    document.getElementById('nav-link').style.color = 'black'
+  }
+
+});
+const loadBooks = () => {
+
+  
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open("GET", "./api", false);
+    xhttp.send();
+
+    const books = JSON.parse(xhttp.responseText);
+
+    for (let book of books) {
+      const data = `${book.id}`
+     
+        const x = `
+            <div class="col-sm-12 col-md-6 col-xl-4 col-xs-2 my-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${book.email}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">${book.id}</h6>
+
+                    
+
+                        <hr>
+
+                        <button type="button" id='vtn' onclick="deleteBook(event)" value=${book.id} class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editBookModal" value=${book.id}  onclick="setEditModal(event)">
+ Edit
+</button>
+                       
+                    </div>
+                </div>
+            </div>
+        `
+
+        document.getElementById('books').innerHTML = document.getElementById('books').innerHTML + x;
+    }
+}
+
+loadBooks();
+
+
+
+async function myFunction (event) {
+  let id = event.target.value
+  event.preventDefault()
+  let headersList = {
+ "Accept": "*/*",
+ "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+ "Content-Type": "application/json"
+}
+
+let bodyContent = JSON.stringify({
+  "name":"arisssf",
+  "titlea":"ac7@gmail.com"
+});
+
+let response = await fetch(`api/${id}`, { 
+  method: "PUT",
+  body: bodyContent,
+  headers: headersList
+});
+
+let data = await response.text();
+console.log(data);
+
+}
+
+
+function close(){
+document.getElementById('editBookModal').style.display = 'none'
+}
+
+
+const setEditModal = (event) => {
+  document.getElementById('editBookModal').style.display = 'block'
+  let id = event.target.value
+    // Get information about the book using isbn
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open("GET", `/api/${id}`, false);
+    xhttp.send();
+
+    const book = JSON.parse(xhttp.responseText);
+
+    const {
+        title,
+        email,
+        publisher,
+        publish_date,
+        numOfPages
+    } = book;
+
+    // Filling information about the book in the form inside the modal
+    document.getElementById('id').value = event.target.value;
+    console.log(book[0].email)
+    document.getElementById('title').value = book[0].email;
+    
+
+    // Setting up the action url for the book
+
+    
+}
+
+
+
+function deleteBook (event) {
+  let text = event.target.value;
+  console.log(text)
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open("DELETE", `/api/${text}`, false);
+    xhttp.send();
+
+    // Reloading the page
+  location.reload()
+}
+
+ 
+  </script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  
+    </body>
+  
+</html>
